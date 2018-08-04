@@ -65,15 +65,17 @@ FUNCTION(add_xplane_plugin library_name library_version ...)
 
     IF(APPLE)
         ADD_EXECUTABLE(${library_name} ${FILES})
-        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "mac.xpl")
+        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "mac")
     ELSEIF(UNIX)
         ADD_LIBRARY(${library_name} SHARED ${FILES})
-        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "lin.xpl")
+        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "lin")
     ELSEIF(WIN32)
         ADD_LIBRARY(${library_name} MODULE ${FILES})
         TARGET_COMPILE_DEFINITIONS(${library_name} PUBLIC -D_CRT_SECURE_NO_WARNINGS /bigobj)
-        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "win.xpl")
+        SET_TARGET_PROPERTIES(${library_name} PROPERTIES OUTPUT_NAME "win")
     ENDIF()
+    SET_TARGET_PROPERTIES(${library_name} PROPERTIES PREFIX "" SUFFIX ".xpl")
+
     add_xplane_sdk_definitions(${library_name} ${library_version})
 
     #link flags
